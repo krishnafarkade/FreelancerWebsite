@@ -1,0 +1,585 @@
+/* Global theme variables for the default dark mode colors, spacing, shadows, and glass effects. */
+:root {
+  color-scheme: dark;
+  --bg: #07111f;
+  --bg-soft: #0d1a2b;
+  --text: #f5f8ff;
+  --muted: #aebbd0;
+  --primary: #18d5ff;
+  --secondary: #14f195;
+  --accent: #ffcf5a;
+  --surface: rgba(255, 255, 255, 0.09);
+  --surface-strong: rgba(255, 255, 255, 0.15);
+  --line: rgba(255, 255, 255, 0.18);
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  --radius: 8px;
+}
+
+/* Light mode overrides used when JavaScript adds the light-mode class to the body. */
+body.light-mode {
+  color-scheme: light;
+  --bg: #f6fbff;
+  --bg-soft: #eaf4fb;
+  --text: #102033;
+  --muted: #5d6f84;
+  --surface: rgba(255, 255, 255, 0.78);
+  --surface-strong: rgba(255, 255, 255, 0.95);
+  --line: rgba(16, 32, 51, 0.12);
+  --shadow: 0 20px 50px rgba(21, 48, 78, 0.14);
+}
+
+/* Universal box sizing keeps padding and borders inside element width calculations. */
+* {
+  box-sizing: border-box;
+}
+
+/* Enables smooth scrolling when users click internal anchor links. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base page styling, background gradients, typography, and horizontal overflow protection. */
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 15% 10%, rgba(24, 213, 255, 0.2), transparent 26%),
+    radial-gradient(circle at 85% 18%, rgba(20, 241, 149, 0.16), transparent 24%),
+    linear-gradient(135deg, var(--bg), var(--bg-soft));
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Animated gradient layer behind the whole website. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(120deg, rgba(24, 213, 255, 0.12), rgba(255, 207, 90, 0.08), rgba(20, 241, 149, 0.1));
+  background-size: 300% 300%;
+  animation: gradientMove 14s ease infinite;
+}
+
+/* Moves the background gradient slowly for the animated page effect. */
+@keyframes gradientMove {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Custom scrollbar styling for WebKit-based browsers. */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--primary), var(--secondary));
+  border-radius: 999px;
+}
+
+/* Removes default link styling while keeping inherited text color. */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Makes images responsive and removes inline image spacing. */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Full-screen loader shown while the page is loading. */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  transition: opacity .35s ease, visibility .35s ease;
+}
+
+/* Hides the loader after JavaScript adds the hidden class. */
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Circular spinning loader graphic. */
+.loader-ring {
+  width: 64px;
+  height: 64px;
+  border: 5px solid rgba(255, 255, 255, .18);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin .9s linear infinite;
+}
+
+/* Rotation animation used by the loader ring. */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Sticky glassmorphism navigation bar. */
+.site-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--line);
+  background: rgba(7, 17, 31, .72);
+  backdrop-filter: blur(18px);
+}
+
+/* Navbar background adjustment for light mode. */
+.light-mode .site-navbar {
+  background: rgba(246, 251, 255, .76);
+}
+
+/* Website logo text styling. */
+.navbar-brand {
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* Gradient KF logo mark beside the brand name. */
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  display: inline-grid;
+  place-items: center;
+  margin-right: 8px;
+  border-radius: var(--radius);
+  color: #05101c;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+}
+
+/* Navigation link default appearance. */
+.nav-link {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Navigation hover and active page state. */
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary);
+}
+
+/* Mobile hamburger button border styling. */
+.navbar-toggler {
+  border-color: var(--line);
+}
+
+/* Standard vertical spacing for large page sections. */
+.section {
+  padding: 96px 0;
+}
+
+/* Smaller vertical spacing for compact page sections. */
+.section-tight {
+  padding: 64px 0;
+}
+
+/* Small uppercase label above headings. */
+.eyebrow {
+  color: var(--secondary);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .78rem;
+}
+
+/* Main section heading style used across pages. */
+.section-title {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 850;
+  margin: 8px 0 16px;
+}
+
+/* Muted paragraph style for introduction and description text. */
+.lead-text {
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.8;
+
+}
+
+/* Utility class for tighter line height where needed. */
+.lt{
+  line-height: 1;
+}
+
+/* Reusable glassmorphism card/panel style. */
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+/* Home page hero section layout. */
+.hero {
+  min-height: calc(100vh - 74px);
+  display: grid;
+  align-items: center;
+  padding: 80px 0 48px;
+}
+
+/* Large hero name heading. */
+.hero h1 {
+  font-size: clamp(2.6rem, 8vw, 5.7rem);
+  line-height: .95;
+  font-weight: 900;
+}
+
+/* Typing animation text line styling. */
+.typing-line {
+  min-height: 42px;
+  color: var(--primary);
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  font-weight: 800;
+}
+
+/* Glass card that contains the profile image. */
+.hero-card {
+  position: relative;
+  padding: 18px;
+}
+
+/* Profile image frame with fixed aspect ratio. */
+.profile-frame {
+  aspect-ratio: 1 / 1.08;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: linear-gradient(145deg, rgba(24, 213, 255, .22), rgba(20, 241, 149, .16));
+}
+
+/* Ensures the profile image fills its frame neatly. */
+.profile-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Floating availability badge on the hero image. */
+.floating-badge {
+  position: absolute;
+  left: 0;
+  bottom: 28px;
+  transform: translateX(-18px);
+  padding: 14px 16px;
+  max-width: 220px;
+}
+
+/* Shared button sizing and rounded corner styling. */
+.btn-brand,
+.btn-outline-brand {
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  font-weight: 800;
+}
+
+/* Primary gradient call-to-action button. */
+.btn-brand {
+  color: #06111d;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border: 0;
+}
+
+/* Secondary outline button with glass background. */
+.btn-outline-brand {
+  color: var(--text);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+/* Hover effect for secondary outline buttons. */
+.btn-outline-brand:hover {
+  color: #06111d;
+  border-color: transparent;
+  background: var(--accent);
+}
+
+/* Shared card styling for stats, services, projects, skills, info, and testimonials. */
+.stat-card,
+.service-card,
+.project-card,
+.skill-card,
+.info-card,
+.testimonial-card {
+  height: 100%;
+  padding: 24px;
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+
+/* Lift and highlight effect for interactive cards. */
+.stat-card:hover,
+.service-card:hover,
+.project-card:hover,
+.skill-card:hover,
+.info-card:hover,
+.testimonial-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(24, 213, 255, .46);
+  background: var(--surface-strong);
+}
+
+/* Large number styling in the statistics section. */
+.stat-number {
+  font-size: 2.35rem;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+/* Icon container used in service and information cards. */
+.icon-box {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  color: #06111d;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  font-size: 1.4rem;
+}
+
+/* Timeline wrapper used on the About page. */
+.timeline {
+  position: relative;
+  padding-left: 30px;
+}
+
+/* Vertical line in the timeline. */
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: linear-gradient(var(--primary), var(--secondary));
+}
+
+/* Individual timeline entry card. */
+.timeline-item {
+  position: relative;
+  margin-bottom: 24px;
+  padding: 20px;
+}
+
+/* Circular marker for each timeline entry. */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -29px;
+  top: 25px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 5px rgba(255, 207, 90, .18);
+}
+
+/* Skill progress bar track styling. */
+.progress {
+  height: 10px;
+  overflow: visible;
+  background: rgba(255, 255, 255, .12);
+}
+
+/* Animated skill progress fill controlled by JavaScript. */
+.progress-bar {
+  width: 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: width 1.2s ease;
+}
+
+/* Project card image sizing and shape. */
+.project-image {
+  height: 210px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 18px;
+  background: var(--surface);
+}
+
+/* Technology tag badges used inside project cards. */
+.tech-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  margin: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: .84rem;
+}
+
+/* Contact form input and textarea styling. */
+.contact-input {
+  width: 100%;
+  padding: 13px 14px;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  outline: none;
+}
+
+/* Focus state for contact form fields. */
+.contact-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(24, 213, 255, .12);
+}
+
+/* Hidden message box used for form success and error messages. */
+.form-message {
+  display: none;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  font-weight: 700;
+}
+
+/* Success state for the contact form message. */
+.form-message.success {
+  display: block;
+  color: #05351f;
+  background: #8af0bd;
+}
+
+/* Error state for the contact form message. */
+.form-message.error {
+  display: block;
+  color: #4f1010;
+  background: #ffb2b2;
+}
+
+/* Shared iframe/video frame styling for map, PDF, and intro video. */
+.map-frame,
+.pdf-frame,
+.video-frame {
+  width: 100%;
+  min-height: 380px;
+  border: 0;
+  border-radius: var(--radius);
+}
+
+/* Footer section styling. */
+.site-footer {
+  padding: 54px 0 24px;
+  border-top: 1px solid var(--line);
+  background: rgba(0, 0, 0, .18);
+}
+
+/* Footer quick link styling. */
+.footer-link {
+  display: inline-block;
+  margin: 6px 14px 6px 0;
+  color: var(--muted);
+}
+
+/* Footer link hover color. */
+.footer-link:hover {
+  color: var(--primary);
+}
+
+/* Shared square icon button style for social, theme, WhatsApp, and back-to-top buttons. */
+.social-link,
+.mode-toggle,
+.back-to-top,
+.whatsapp-float {
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* Social media icon button dimensions. */
+.social-link {
+  width: 42px;
+  height: 42px;
+  margin-right: 8px;
+}
+
+/* Dark and light mode toggle button styling. */
+.mode-toggle {
+  width: 42px;
+  height: 42px;
+  color: var(--text);
+}
+
+/* Fixed WhatsApp inquiry button. */
+.whatsapp-float {
+  position: fixed;
+  right: 18px;
+  bottom: 88px;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  color: #fff;
+  border: 0;
+  background: #25d366;
+  box-shadow: var(--shadow);
+}
+
+/* Fixed back-to-top button hidden by default. */
+.back-to-top {
+  position: fixed;
+  right: 18px;
+  bottom: 22px;
+  z-index: 999;
+  width: 46px;
+  height: 46px;
+  color: var(--text);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+
+/* Visible state for the back-to-top button after scrolling. */
+.back-to-top.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Tablet and small desktop responsive adjustments. */
+@media (max-width: 991px) {
+  .hero {
+    min-height: auto;
+    padding-top: 54px;
+  }
+
+  .floating-badge {
+    position: static;
+    transform: none;
+    max-width: none;
+    margin-top: 14px;
+  }
+}
+
+/* Mobile responsive adjustments. */
+@media (max-width: 575px) {
+  .section {
+    padding: 68px 0;
+  }
+
+  .hero h1 {
+    font-size: 2.7rem;
+  }
+
+  .btn-brand,
+  .btn-outline-brand {
+    width: 100%;
+  }
+}
